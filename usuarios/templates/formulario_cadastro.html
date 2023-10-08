@@ -1,0 +1,76 @@
+{% extends "bases/base.html" %}
+
+{% block 'conteudo' %}
+
+<div class="container">
+        <h2>Cadastro</h2>
+        <form action="" method="POST">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="firstName" name="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="lastName" name="sobrenome" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Nome de Usuário</label>
+                <input type="text" class="form-control" id="username" name="nome_de_usuario" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" name="senha" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Confirmar senha</label>
+                <input type="password" class="form-control" id="password" name="confirma_senha" required>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Tipo</label>
+                <select class="form-select" id="country" name="country" required >
+                    <option value="" disabled selected>Escolha um tipo de usuário</option>
+                    <option value="usa">United States</option>
+                    <option value="canada">Canada</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+{% endblock 'conteudo' %}
+
+<div class="container">
+        <h2>Cadastro</h2>
+        <form>
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <select class="form-select" id="country" name="country" required>
+                    <option value="" disabled selected>Select your country</option>
+                    <option value="usa">United States</option>
+                    <option value="canada">Canada</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
