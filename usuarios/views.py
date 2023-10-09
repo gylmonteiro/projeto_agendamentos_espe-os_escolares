@@ -3,9 +3,22 @@ from django.http import HttpResponse
 from . models import Tipo, Usuario
 from django.contrib import messages
 from django.contrib.messages import constants
+from django.contrib.auth import authenticate, login
 # Create your views here.
 def acessar(request):
-    return render(request, 'formulario_login.html')
+    if request.method == "GET":
+        return render(request, 'formulario_login.html')
+    elif request.method == "POST":
+        nome_usuario = request.POST.get('nome_usuario')
+        senha = request.POST.get('senha')
+        usuario = authenticate(username=nome_usuario, password=senha)
+        if usuario:
+            print(usuario)
+            return HttpResponse("logado")
+        else:
+            messages.add_message(request, constants.ERROR, 'Usuário ou senha inválida')
+            return redirect("acessar")
+
 
 
 def cadastrar_usuario(request):
@@ -14,13 +27,12 @@ def cadastrar_usuario(request):
         return render(request, 'formulario_cadastro.html',{'tipos': tipos})
     elif request.method == "POST":
         try:
-            usuario = Usuario()
-            usuario.first_name = request.POST.get('nome')
-            usuario.last_name = request.POST.get('sobrenome')
-            usuario.username = request.POST.get('nome_de_usuario')
-            usuario.email = request.POST.get('email')
-            usuario.cpf = request.POST.get('cpf')
-            usuario.matricula = request.POST.get('matricula')
+            first_name = request.POST.get('nome')
+            last_name = request.POST.get('sobrenome')
+            username = request.POST.get('nome_de_usuario')
+            email = request.POST.get('email')
+            cpf = request.POST.get('cpf')
+            matricula = request.POST.get('matricula')
 
             # confirmação de senha: Nesta etapa podemos fazer a verificação se as senhas são idênticas
             senha = request.POST.get('senha')
@@ -31,7 +43,19 @@ def cadastrar_usuario(request):
                 messages.add_message(request, constants.ERROR, 'As senhas não coincidem ou são menores que 6 caracteres')
                 return redirect('cadastrar_usuario')
             
-            usuario.save()
+            # Salvando os usuarios
+            usuario = Usuario.objects.create_user(
+                first_name = first_name,
+                last_name = last_name,
+                username = username,
+                email = email,
+                cpf = cpf,
+                matricula = matricula,
+                password = senha,
+
+            )
+
+            # Adicionando os tipos de usuarios
             tipos = request.POST.getlist('tipos')
 
             for tipo in tipos:
