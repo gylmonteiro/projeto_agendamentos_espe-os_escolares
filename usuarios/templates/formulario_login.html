@@ -8,8 +8,15 @@
 
 {% block 'conteudo' %}
 <div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    
+    {% endif %}
     <h2>Login</h2>
-    <form>
+    <form action="{%url 'acessar'%}" method="POST"> {% csrf_token %}
         <div class="mb-3">
             <label for="username" class="form-label">Nome de usuário</label>
             <input type="text" class="form-control" id="username" name="nome_usuario" required>

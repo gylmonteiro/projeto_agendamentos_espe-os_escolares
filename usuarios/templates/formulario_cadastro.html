@@ -3,8 +3,15 @@
 {% block 'conteudo' %}
 
 <div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    
+    {% endif %}
         <h2>Cadastro</h2>
-        <form action="" method="POST">
+        <form action="{%url 'cadastrar_usuario'%}" method="POST"> {% csrf_token %}
             <div class="mb-3">
                 <label for="firstName" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="firstName" name="nome" required>
@@ -18,6 +25,33 @@
                 <input type="text" class="form-control" id="username" name="nome_de_usuario" required>
             </div>
             <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" required>
+            </div>
+            <div class="mb-3">
+                <label for="matricula" class="form-label">Matricula - sem digito</label>
+                <input type="number" class="form-control" id="matricula" name="matricula" required>
+            </div>
+            
+            <h3>Escolha suas funções</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="tipos" class="form-label">Funções disponíveis</label>
+                        <select multiple class="form-select form-control" id="tipos" name="tipos">
+                            {% for  tipo in tipos%}
+                            <option value="{{tipo.funcao}}">{{tipo.get_funcao_display}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="mb-3">
                 <label for="password" class="form-label">Senha</label>
                 <input type="password" class="form-control" id="password" name="senha" required>
             </div>
@@ -25,52 +59,9 @@
                 <label for="password" class="form-label">Confirmar senha</label>
                 <input type="password" class="form-control" id="password" name="confirma_senha" required>
             </div>
-            <div class="mb-3">
-                <label for="country" class="form-label">Tipo</label>
-                <select class="form-select" id="country" name="country" required >
-                    <option value="" disabled selected>Escolha um tipo de usuário</option>
-                    <option value="usa">United States</option>
-                    <option value="canada">Canada</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
 
 {% endblock 'conteudo' %}
-
-<div class="container">
-        <h2>Cadastro</h2>
-        <form>
-            <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" required>
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" required>
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="mb-3">
-                <label for="country" class="form-label">Country</label>
-                <select class="form-select" id="country" name="country" required>
-                    <option value="" disabled selected>Select your country</option>
-                    <option value="usa">United States</option>
-                    <option value="canada">Canada</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </div>
 
