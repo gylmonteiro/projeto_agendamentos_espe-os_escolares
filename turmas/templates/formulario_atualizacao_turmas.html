@@ -1,0 +1,40 @@
+{% extends "bases/base.html" %}
+
+{% block 'conteudo' %}
+
+<div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    
+        {% endif %}
+        <h2>Atualização da {{turma}}</h2>
+        <form   action="{%url 'atualiza_turmas' turma.id%}" method="POST"> {% csrf_token %}
+            <div class="row">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Turma</label>
+                    <input type="text" class="form-control" id="turma" name="turma" placeholder="Exemplo: 'A', 'B', 'C'"/>
+                </div>
+            </div>
+           
+
+            <div class="col-md-6">
+
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Número de alunos na turma</label>
+                    <input type="number" class="form-control" id="numero_alunos" name="numero_alunos">
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Ano de início da turma</label>
+                    <input type="text" class="form-control" id="ano_inicio" name="ano_inicio">
+                </div>
+            </div>
+        
+            
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
+    </div>
+
+{% endblock 'conteudo' %}

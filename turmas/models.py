@@ -7,6 +7,7 @@ class Turma(models.Model):
     
     serie = models.CharField(max_length=1, choices=choice_series)
     modalidade =models.CharField(max_length=3, choices=choice_modalidade)
+    turma = models.CharField(max_length=1, default="A")
     ano_inicio = models.IntegerField()
     numero_alunos = models.IntegerField()
 

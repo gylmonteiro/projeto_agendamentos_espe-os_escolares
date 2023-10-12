@@ -15,11 +15,16 @@
 
 
 <div class="container">
-    <h2>Lista de Séries</h2>
+    <div class="container">
+      
+        <a href="{%url 'cadastrar_turmas'%}" class="btn btn-primary">Cadastrar nova turma</a>
+    </div>
+    <h2>Lista de turmas cadastradas</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nome da Série</th>
+                <th>Turma</th>
                 <th>Modalidade de Ensino</th>
                 <th>Ano de Início</th>
                 <th>Número de Alunos</th>
@@ -31,12 +36,13 @@
             {% for turma  in turmas %}
             <tr>
                 <td>{{turma.get_serie_display}}</td>
+                <td>{{turma.turma}}</td>
                 <td>{{turma.get_modalidade_display}}</td>
                 <td>{{turma.ano_inicio}}</td>
                 <td>{{turma.numero_alunos}}</td>
                 <td>
-                    <i class="fas fa-edit text-primary"></i>
-                    <i class="fas fa-trash text-danger"></i>
+                    <a href="{%url 'atualiza_turmas' turma.id%}"><i class="fas fa-edit text-primary"></i></a>
+                    <a href="{%url 'deleta_turmas' turma.id%}"><i class="fas fa-trash text-danger"></i></a>
                 </td>
             </tr>
             {% endfor %}
