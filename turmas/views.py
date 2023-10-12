@@ -16,5 +16,7 @@ def turmas(request):
         return redirect("cadastrar_turmas")
     
 def turmas_detalhes(request):
+
+    turmas = Turma.objects.all()
     if request.method == "GET":
-        return render(request,"listagem_turmas.html")
+        return render(request,"listagem_turmas.html", {'turmas': turmas})
