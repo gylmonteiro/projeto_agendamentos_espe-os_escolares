@@ -1,0 +1,56 @@
+{% extends "bases/base.html" %}
+
+{% block 'conteudo' %}
+
+<div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    
+        {% endif %}
+        <h2>Cadastro de Turma</h2>
+        <form action="" method="POST"> {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="tipos" class="form-label">Séries</label>
+                        <select multiple class="form-select form-control" id="serie" name="serie" required>
+                            <option value="1">Primeiro Ano (1º)</option>
+                            <option value="2">Segundo Ano (2º)</option>
+                            <option value="3">Terceiro Ano (3º)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="tipos" class="form-label">Modalidade</label>
+                        <select multiple class="form-select form-control" id="modalidade" name="modalidade" required>
+                            <option value="I">INTEGRAL</option>
+                            <option value="I.T">TÉCNICO NA MODALIDADE INTEGRAL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="col-md-6">
+
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Número de alunos na turma</label>
+                    <input type="number" class="form-control" id="numero_alunos" name="numero_alunos">
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Ano de início da turma</label>
+                    <input type="text" class="form-control" id="ano_inicio" name="ano_inicio" required>
+                </div>
+            </div>
+        
+            
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+{% endblock 'conteudo' %}
