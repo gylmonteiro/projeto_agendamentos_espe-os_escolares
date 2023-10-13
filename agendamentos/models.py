@@ -15,7 +15,7 @@ class Espaco(models.Model):
         return f"{self.nome_sala} - {self.get_tipo_display()}"
     
 class Horario(models.Model):
-    ordem = models.IntegerField()
+    ordem = models.IntegerField(unique=True)
     descricao = models.CharField(max_length=20)
 
     def __str__(self) -> str:

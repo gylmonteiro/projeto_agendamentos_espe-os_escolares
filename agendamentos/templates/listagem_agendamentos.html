@@ -28,9 +28,13 @@
                     <td>{{agendamento.data_agendamento|date:"d/m/y"}}</td>
                     <td>{{agendamento.turma}}</td>
                     <td>{{agendamento.espaco}}</td>
-                    <td>09:00 - 11:00</td>
-                    <td>João Silva</td>
-                    <td><i class="fas fa-check-circle text-danger"></i></td>
+                    <td>{{agendamento.horario}}</td>
+                    <td>{{agendamento.responsavel.first_name}}</td>
+                    {% if agendamento.ocupacao %}
+                        <td><i class="fas fa-check-circle text-danger"></i></td>
+                    {% else  %}
+                        <td><i class="fas fa-check-circle text-sucess"></i></td>
+                    {% endif %}
                     <td>
                         <a href="#"><i class="fas fa-edit text-primary"></i></a>
                         <a href="#"><i class="fas fa-trash text-danger"></i></a>
