@@ -13,4 +13,4 @@ class Turma(models.Model):
 
 
     def __str__(self) -> str:
-        return f"Turma: {self.get_serie_display()} | Modalidade: {self.get_modalidade_display()}"
+        return f"{self.get_serie_display()} | {self.get_modalidade_display()}"

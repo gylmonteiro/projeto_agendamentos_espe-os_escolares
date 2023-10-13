@@ -1,0 +1,51 @@
+{% extends "bases/base.html" %}
+
+{% block 'conteudo' %}
+{% block 'head' %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock 'head' %}
+<div class="container">
+    <h2>Lista de Agendamentos</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Data do Agendamento</th>
+                    <th>Turma</th>
+                    <th>Espaço</th>
+                    <th>Horários</th>
+                    <th>Responsável</th>
+                    <th>Ocupação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linha 1 -->
+                {% for agendamento in agendamentos %}
+                <tr>
+                    <td>{{agendamento.data_agendamento|date:"d/m/y"}}</td>
+                    <td>{{agendamento.turma}}</td>
+                    <td>{{agendamento.espaco}}</td>
+                    <td>09:00 - 11:00</td>
+                    <td>João Silva</td>
+                    <td><i class="fas fa-check-circle text-danger"></i></td>
+                    <td>
+                        <a href="#"><i class="fas fa-edit text-primary"></i></a>
+                        <a href="#"><i class="fas fa-trash text-danger"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+               
+            </tbody>
+        </table>
+
+    </div>
+   
+</div>
+
+{% endblock 'conteudo' %}
+
+
+
