@@ -7,7 +7,8 @@
 
 {% block 'conteudo' %}
 <div class="container">
-    <h2>Agendamentos do espaço: </h2>
+    <h2>Agendamentos: {{espaco}} </h2>
+    <h2>Data: {{data}} </h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -19,22 +20,16 @@
         </thead>
         <tbody>
             <!-- Linha 1 -->
+            {% for horario in horarios %}
             <tr>
-                <td>08:00 - 09:30</td>
+                <td>{{horario}}</td>
                 <td>Prof. Silva</td>
                 <td>Turma A</td>
                 <td><i class="fas fa-check-circle text-success"></i></td>
             </tr>
+            {% endfor %}
+            
 
-            <!-- Linha 2 -->
-            <tr>
-                <td>10:00 - 11:30</td>
-                <td>Prof. Santos</td>
-                <td>Turma B</td>
-                <td><i class="fas fa-check-circle text-success"></i></td>
-            </tr>
-
-            <!-- Adicione mais linhas conforme necessário -->
         </tbody>
     </table>
 </div>

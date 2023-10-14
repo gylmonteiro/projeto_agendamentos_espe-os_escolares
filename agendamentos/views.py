@@ -20,12 +20,15 @@ def criar_agendamento(request):
 def pesquisar_espaco(request):
     espacos = Espaco.objects.all()
     if request.method == "GET":
-        # data = request.POST.get("data")
         return render (request, "pesquisa_espacos.html", {'espacos': espacos})
     elif request.method == "POST":
+        horarios = Horario.objects.all()
+        data = request.POST.get('data')
         espaco_id = request.POST.get('espaco')
-        print (espaco_id)
-        return render (request, "listagem_agendamentos_sala.html")
+        espaco_filter = Espaco.objects.filter(pk=espaco_id)[0]
+        agendamentos_sala = Agendamento.objects.filter(espaco=espaco_filter)
+        
+        return render (request, "listagem_agendamentos_sala.html", {'espaco': espaco_filter, 'horarios': horarios, 'agendamentos_sala':agendamentos_sala, 'data': data} )
 
 # def lista_agendamentos_sala(request):
 #     if request.method == "POST":
