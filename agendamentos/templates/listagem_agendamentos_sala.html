@@ -22,11 +22,23 @@
             <!-- Linha 1 -->
             {% for horario in horarios %}
             <tr>
+            {% for agendamento in agendamentos_sala %}
+            {% if agendamento.horario == horario and agendamento.data_agendamento == data %}
                 <td>{{horario}}</td>
-                <td>Prof. Silva</td>
-                <td>Turma A</td>
-                <td><i class="fas fa-check-circle text-success"></i></td>
+                <td>{{agendamento.responsavel.first_name}}</td>
+                <td>{{agendamento.turma}}</td>
+                <td><i class="fas fa-check-circle text-danger"></i></td>
             </tr>
+            {% else %}
+            <tr>
+                <td>{{horario}}</td>
+                <td>--</td>
+                <td>--</td>
+                <td><i class="fas fa-check-circle text-sucess"></i></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
             {% endfor %}
             
 
