@@ -28,7 +28,7 @@ def pesquisar_espaco(request):
         data_formatada =  datetime.strptime(data, '%Y-%m-%d').date()
         espaco_id = request.POST.get('espaco')
         espaco_filter = Espaco.objects.filter(pk=espaco_id)[0]
-        agendamentos_sala = Agendamento.objects.filter(espaco=espaco_filter)
+        agendamentos_sala = Agendamento.objects.filter(espaco=espaco_filter, data_agendamento=data_formatada)
 
         return render (request, "listagem_agendamentos_sala.html", {'espaco': espaco_filter, 'horarios': horarios, 'agendamentos_sala':agendamentos_sala, 'data': data_formatada} )
 

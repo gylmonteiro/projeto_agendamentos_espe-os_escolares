@@ -11,40 +11,64 @@
 <div class="container">
     <h2>Agendamentos: {{espaco}} </h2>
     <h2>Data: {{data}} </h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Horário</th>
-                <th>Professor</th>
-                <th>Turma</th>
-                <th>Marcar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Linha 1 -->
-            {% for horario in horarios %}
-            <tr>
+    <div class="container">
+        <h2>Tabela de Agendamentos de Aulas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Horário</th>
+                    <th>Professor</th>
+                    <th>Turma</th>
+                    <th>Marcar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linha 1 -->
                 {% for agendamento in agendamentos_sala %}
-                    {% if agendamento.horario == horario and agendamento.data_agendamento == data %}
-                        <td>{{horario}}</td>
+                    <tr>
+                        <td>{{agendamento.horario}}</td>
                         <td>{{agendamento.responsavel.first_name}}</td>
                         <td>{{agendamento.turma}}</td>
                         <td><i class="fas fa-check-circle text-danger"></i></td>
-                     
-                    {% else %}
-                    <td>{{horario}}</td>
-                    <td></td>
-                    <td></td>
-                    <td><i class="fas fa-check-circle text-sucess"></i></td>
-                    {% endif %}
+                    </tr>
                 {% endfor %}
-                            
-            </tr>
-            {% endfor %}
-            
+                
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Horário</th>
+                    <th>Professor</th>
+                    <th>Turma</th>
+                    <th>Marcar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linha 1 -->
+                {% for horario in horarios %}
+
+                    {% for agendamento in agendamentos_sala %}
+                        {% if agendamento.horario != horario %}
+                        
+                        <tr>
+                            <td>{{horario}}</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                
+
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
