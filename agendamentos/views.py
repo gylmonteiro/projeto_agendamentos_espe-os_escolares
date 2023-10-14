@@ -15,3 +15,18 @@ def criar_agendamento(request):
     horarios = Horario.objects.all()
     if request.method == "GET":
         return render(request, 'formulario_agendamento.html', {"espacos": espacos, "turmas": turmas, "horarios": horarios})
+    
+
+def pesquisar_espaco(request):
+    espacos = Espaco.objects.all()
+    if request.method == "GET":
+        # data = request.POST.get("data")
+        return render (request, "pesquisa_espacos.html", {'espacos': espacos})
+    elif request.method == "POST":
+        espaco_id = request.POST.get('espaco')
+        print (espaco_id)
+        return render (request, "listagem_agendamentos_sala.html")
+
+# def lista_agendamentos_sala(request):
+#     if request.method == "POST":
+#         return render(request, "listagem_agendamentos_sala.html")

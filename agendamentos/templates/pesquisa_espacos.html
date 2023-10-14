@@ -1,0 +1,38 @@
+{% extends "bases/base.html" %}
+
+
+{% block 'conteudo' %}
+
+<div class="container">
+    <h2>Encontre o espaço através de uma data</h2>
+    <form action="{% url 'filtragem_agendamentos_sala'%}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            
+            <label for="data" class="form-label">Data:</label>
+            <input type="date" class="form-control" id="data" name="data">
+        </div>
+
+        <div class="mb-3">
+            <label for="sala" class="form-label">Sala:</label>
+            <select class="form-select" id="espaco" name="espaco">
+                {% for espaco in espacos %}
+                <option value="{{espaco.id}}">{{espaco}}</option>
+                
+                {% endfor %}
+                <!-- Adicione mais opções conforme necessário -->
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+
+
+{% endblock 'conteudo' %}
+
+
+
+
+
