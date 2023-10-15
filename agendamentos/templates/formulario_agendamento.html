@@ -7,20 +7,16 @@
 
 <div class="container">
     <h2>Agendamento de Espaço: {{espaco}}</h2>
-    <h2>Data: </h2>
+    <h2>Data:{{data}} </h2>
 
     <form>
-        <div class="form-group">
-            <label for="data">Data:</label>
-            <input type="date" class="form-control" id="data" name="data">
-        </div>
+        
 
         <div class="form-group">
-            <label for="espaco">Espaços:</label>
+            <label for="espaco">Espaço:</label>
             <select class="form-control" id="espaco" name="espaco">
-                {% for espaco in espacos %}
                 <option value="{{espaco.id}}">{{espaco}}</option>
-                {% endfor %}
+                
                 <!-- Adicione mais opções conforme necessário -->
             </select>
         </div>
@@ -39,18 +35,15 @@
         <div class="form-group">
             <label for="horario">Horários:</label>
             <select class="form-control" id="horario" name="horario">
-                {% for horario in horarios %}
+                
                 <option value="{{horario.id}}">{{horario}}</option>
-                {% endfor %}
+                
                 
                 <!-- Adicione mais opções conforme necessário -->
             </select>
         </div>
 
-        {% comment %} <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="confirmacao" name="confirmacao">
-            <label class="form-check-label" for="confirmacao">Confirmar Agendamento</label>
-        </div> {% endcomment %}
+    
 
         <button type="submit" class="btn btn-primary">Agendar</button>
     </form>

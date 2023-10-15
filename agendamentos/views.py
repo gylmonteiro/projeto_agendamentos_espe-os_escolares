@@ -12,12 +12,15 @@ def listar_agendamentos(request):
 
 def criar_agendamento(request):
     espaco = request.GET.get('espaco')
-    print((espaco))
-    espacos = Espaco.objects.all()
+    data = request.GET.get('data')
+    horario = request.GET.get('horario')
+    
+    horario_filtrado = Horario.objects.get(id=horario)
+    espaco_filtrado = Espaco.objects.get(id=espaco)
     turmas = Turma.objects.all()
     horarios = Horario.objects.all()
     if request.method == "GET":
-        return render(request, 'formulario_agendamento.html', {"espacos": espacos, "turmas": turmas, "horarios": horarios})
+        return render(request, 'formulario_agendamento.html', {"espaco": espaco_filtrado,"turmas": turmas, "horario": horario_filtrado, "data": data})
     
     if request.method =="POST":
         
