@@ -11,14 +11,18 @@ def listar_agendamentos(request):
     
 
 def criar_agendamento(request):
+    # Receber todos os valores da que são disponibilizados na listagem de espaços disponíveis
     espaco = request.GET.get('espaco')
     data = request.GET.get('data')
     horario = request.GET.get('horario')
     
+    # Filtrar os campos para listagem
     horario_filtrado = Horario.objects.get(id=horario)
     espaco_filtrado = Espaco.objects.get(id=espaco)
+
+    # Consultar a lista de turmas que estão disponíveis no banco
     turmas = Turma.objects.all()
-    horarios = Horario.objects.all()
+    
     if request.method == "GET":
         return render(request, 'formulario_agendamento.html', {"espaco": espaco_filtrado,"turmas": turmas, "horario": horario_filtrado, "data": data})
     
