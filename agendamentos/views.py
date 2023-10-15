@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Agendamento, Espaco, Horario
 from turmas.models import Turma
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.utils.dateparse import parse_date
 # Create your views here.
 def listar_agendamentos(request):
     if request.method == "GET":
@@ -15,7 +16,7 @@ def criar_agendamento(request):
     # Receber todos os valores da que são disponibilizados na listagem de espaços disponíveis
     espaco = request.GET.get('espaco')
     data = request.GET.get('data')
-    print(type(data), data)
+  
     horario = request.GET.get('horario')
     
     # Filtrar os campos para listagem
@@ -30,14 +31,15 @@ def criar_agendamento(request):
     
     if request.method =="POST":
         usuario_logado = request.user
-        # data_formatada =  datetime.strptime(data, '%m-%d-%Y').date()
+        data_formatada = datetime.strptime(data, "%d/%m/%Y")      
         turma_id = request.POST.get("turma")
         turma = Turma.objects.get(pk=turma_id)
         espaco = espaco_filtrado
         usuario = usuario_logado
+        
 
-        # Agendamento.objects.create(data_agendamento=data_formatada, turma=turma, espaco = espaco, responsavel=usuario)
-        return HttpResponse("Criei agendamento")
+        Agendamento.objects.create(data_agendamento=data_formatada, turma=turma, espaco = espaco, responsavel=usuario, horario=horario_filtrado)
+        return redirect("filtragem_agendamentos_sala")
     
 
 def pesquisar_espaco(request):
@@ -50,8 +52,8 @@ def pesquisar_espaco(request):
 
         # formatar data para o campo django
         data = request.POST.get('data')
+    
         data_formatada =  datetime.strptime(data, '%Y-%m-%d').date()
-        
         # filtrando espaço através dos dados originados do POST na pesquisa de filtragem
         espaco_id = request.POST.get('espaco')
         espaco_filter = Espaco.objects.filter(pk=espaco_id)[0]

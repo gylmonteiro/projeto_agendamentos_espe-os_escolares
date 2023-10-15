@@ -11,7 +11,7 @@
 {% block 'conteudo' %}
 <div class="container">
     <h2>Agendamentos: {{espaco}} </h2>
-    <h2>Data: {{data}} </h2>
+    <h2>Data: {{data|date:'d/m/Y'}} </h2>
     <div class="container">
         <h2>Agendamentos de Aulas</h2>
         <table class="table table-striped">
@@ -64,7 +64,7 @@
                                 <form action="{%url 'agenda_sala'%}" method="GET"> {% csrf_token %}
                                 <input type="hidden" name="horario" value="{{horario.id}}">
                                 <input type="hidden" name="espaco" value="{{espaco.id}}">
-                                <input type="hidden" name="data" value="{{data}}">
+                                <input type="hidden" name="data" value="{{data|date:'d/m/Y'}}">
                                 <button type="submit" class="btn "><i class="fas fa-check-circle text-success"></i></button>  
                                 </form>
                             </td>
