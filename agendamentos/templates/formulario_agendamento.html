@@ -3,51 +3,51 @@
 
 {% load static %}
 
+{% block 'head' %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock 'head' %}
+
 {% block 'conteudo' %}
 
-<div class="container">
-    <h2>Agendamento de Espaço: {{espaco}}</h2>
-    <h2>Data:{{data}} </h2>
 
-    <form>
-        
-
-        <div class="form-group">
-            <label for="espaco">Espaço:</label>
-            <select class="form-control" id="espaco" name="espaco">
-                <option value="{{espaco.id}}">{{espaco}}</option>
-                
-                <!-- Adicione mais opções conforme necessário -->
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="turma">Turmas:</label>
-            <select class="form-control" id="turma" name="turma">
-               {% for turma in turmas %}
-               
-                <option value="{{turma.id}}">{{turma}}</option>
-                {% endfor %}
-                <!-- Adicione mais opções conforme necessário -->
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="horario">Horários:</label>
-            <select class="form-control" id="horario" name="horario">
-                
-                <option value="{{horario.id}}">{{horario}}</option>
-                
-                
-                <!-- Adicione mais opções conforme necessário -->
-            </select>
-        </div>
-
-    
-
-        <button type="submit" class="btn btn-primary">Agendar</button>
     </form>
-</div>
+
+    <div class="container" style="background-color: #f0f0f0; color: #333; padding: 20px;">
+        <h2>Agendamento para: {{espaco}}</h2>
+
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                    <input type="text" class="form-control" id="data" name="data" value="{{ data }}" readonly>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    <input type="text" class="form-control" id="horario" name="horario" value="{{ horario }}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="turma">Turmas:</label>
+                <select class="form-control" id="turma" name="turma">
+                   {% for turma in turmas %}
+                   
+                    <option value="{{turma.id}}">{{turma}}</option>
+                    {% endfor %}
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agendar</button>
+        </form>
+    </div>
+
 
 
 
