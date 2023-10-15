@@ -13,13 +13,12 @@ def acessar(request):
         senha = request.POST.get('senha')
         usuario = authenticate(username=nome_usuario, password=senha)
         if usuario:
-            print(usuario)
-            return HttpResponse("logado")
+            login(request, usuario)
+            messages.add_message(request, constants.SUCCESS, 'Usuário logado')
+            return redirect("pesquisa_espaco")
         else:
             messages.add_message(request, constants.ERROR, 'Usuário ou senha inválida')
             return redirect("acessar")
-
-
 
 def cadastrar_usuario(request):
     tipos = Tipo.objects.all()

@@ -3,17 +3,19 @@ from django.http import HttpResponse
 from .models import Agendamento, Espaco, Horario
 from turmas.models import Turma
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def listar_agendamentos(request):
     if request.method == "GET":
         agendamentos = Agendamento.objects.all()
         return render(request, "listagem_agendamentos.html", {"agendamentos": agendamentos})
     
-
+@login_required(login_url='acessar')
 def criar_agendamento(request):
     # Receber todos os valores da que são disponibilizados na listagem de espaços disponíveis
     espaco = request.GET.get('espaco')
     data = request.GET.get('data')
+    print(type(data), data)
     horario = request.GET.get('horario')
     
     # Filtrar os campos para listagem
@@ -27,9 +29,15 @@ def criar_agendamento(request):
         return render(request, 'formulario_agendamento.html', {"espaco": espaco_filtrado,"turmas": turmas, "horario": horario_filtrado, "data": data})
     
     if request.method =="POST":
-        
-        
-        return HttpResponse("É aqui mesmo")
+        usuario_logado = request.user
+        # data_formatada =  datetime.strptime(data, '%m-%d-%Y').date()
+        turma_id = request.POST.get("turma")
+        turma = Turma.objects.get(pk=turma_id)
+        espaco = espaco_filtrado
+        usuario = usuario_logado
+
+        # Agendamento.objects.create(data_agendamento=data_formatada, turma=turma, espaco = espaco, responsavel=usuario)
+        return HttpResponse("Criei agendamento")
     
 
 def pesquisar_espaco(request):
