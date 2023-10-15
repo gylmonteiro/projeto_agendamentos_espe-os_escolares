@@ -30,10 +30,13 @@ def criar_agendamento(request):
         return render(request, 'formulario_agendamento.html', {"espaco": espaco_filtrado,"turmas": turmas, "horario": horario_filtrado, "data": data})
     
     if request.method =="POST":
+        # Recebendo usuario através da sessão de login
         usuario_logado = request.user
+        # Formatação do campo data para que possa ser usando na instância do objeto agendamento
         data_formatada = datetime.strptime(data, "%d/%m/%Y")      
         turma_id = request.POST.get("turma")
         turma = Turma.objects.get(pk=turma_id)
+        # rever essas partes do código
         espaco = espaco_filtrado
         usuario = usuario_logado
         
