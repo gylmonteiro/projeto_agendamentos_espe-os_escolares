@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from .models import Agendamento, Espaco, Horario
 from turmas.models import Turma
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
+from django.contrib import messages
+from django.contrib.messages import constants
+from django.http import HttpResponse
 # Create your views here.
 def listar_agendamentos(request):
     if request.method == "GET":
@@ -64,5 +65,19 @@ def pesquisar_espaco(request):
         horarios_em_uso = agendamentos_sala.values_list('horario', flat=True)
         horarios_disponiveis = horarios_disponiveis.exclude(ordem__in=horarios_em_uso)
 
-        return render (request, "listagem_agendamentos_sala.html", {'espaco': espaco_filter, 'horarios': horarios_disponiveis, 'agendamentos_sala':agendamentos_sala, 'data': data_formatada} )
+        # Resgatar usuario logado 
+        usuario_ativo = request.user
+        # Mensagem para informar que o usuário deverá ter cadastrado e estar logado para poder realizar o agendamento
+        
+        if request.user.is_anonymous:
+            messages.add_message(request, constants.WARNING, 'Para realizar o agendamento, você deverá estar logado!')
+        else:
+            messages.add_message(request, constants.SUCCESS, 'Você consegue fazer o agendamento para os horários disponíveis!')
 
+        return render (request, "listagem_agendamentos_sala.html", {'espaco': espaco_filter, 'horarios': horarios_disponiveis, 'agendamentos_sala':agendamentos_sala, 'data': data_formatada, 'usuario': usuario_ativo} )
+
+def deleta_agendamento(request, id):
+    agendamento = Agendamento.objects.get(pk=id)
+    Agendamento.delete(agendamento)
+    messages.add_message(request, constants.SUCCESS, 'Agendamento desmarcado com sucesso')
+    return redirect("pesquisa_espaco")

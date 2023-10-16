@@ -4,6 +4,13 @@
 {% block 'conteudo' %}
 
 <div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+
+    {% endif %}
     <h2>Encontre o espaço através de uma data</h2>
     <form action="{% url 'filtragem_agendamentos_sala'%}" method="POST">
         {% csrf_token %}

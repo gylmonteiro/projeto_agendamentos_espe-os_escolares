@@ -9,7 +9,15 @@
 
 
 {% block 'conteudo' %}
+
 <div class="container">
+    {% if messages %}
+    
+        {% for message  in messages  %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+
+    {% endif %}
     <h2>Agendamentos: {{espaco}} </h2>
     <h2>Data: {{data|date:'d/m/Y'}} </h2>
     <div class="container">
@@ -20,7 +28,7 @@
                     <th>Horário</th>
                     <th>Professor</th>
                     <th>Turma</th>
-                    <th>Marcar</th>
+                    <th>Desmarcar</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,13 +36,15 @@
                 {% for agendamento in agendamentos_sala %}
                     <tr>
                         <td>{{agendamento.horario}}</td>
-                        <td>{{agendamento.responsavel.first_name}}</td>
+                        <td>{{agendamento.responsavel.first_name}} {{agendamento.responsavel.last_name}}</td>
                         <td>{{agendamento.turma}}</td>
-                        <td><i class="fas fa-check-circle text-danger"></i></td>
+                        {% if agendamento.responsavel == usuario %}
+                            <td> <a class="nav-link" href="{%url 'deleta_agendamento' agendamento.id%}"><i class="fas fa-check-circle text-danger"></i></a></td>
+                        {% else %}
+                            <td><i class="fas fa-check-circle text-danger"></i></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
-                
-
             </tbody>
         </table>
 
